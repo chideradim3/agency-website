@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChinaBridge Consult — Study in China</title>
+<meta name="description" content="ChinaBridge Consult helps students apply to Chinese universities, secure scholarships and get their study visa.">
+<link rel="icon" href="brand-asset/logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy:  { DEFAULT: '#042458', deep: '#021638', soft: '#1B3A6E', mist: '#E6EBF3' },
+          gold:  { DEFAULT: '#C08C28', light: '#E2B85A', pale: '#F6EBD3' },
+          seal:  '#C83024',
+          paper: '#F4F6FA',
+          ink:   '#0F1B2D',
+        },
+        fontFamily: {
+          display: ['"Young Serif"', 'Georgia', 'serif'],
+          sans: ['Figtree', 'system-ui', 'sans-serif'],
+        },
+        maxWidth: { page: '72rem' },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    --spring: cubic-bezier(.34, 1.56, .64, 1);
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+    --shadow-1: 0 1px 2px rgba(4,36,88,.06), 0 4px 12px -4px rgba(4,36,88,.10);
+    --shadow-2: 0 1px 2px rgba(4,36,88,.06), 0 10px 24px -8px rgba(4,36,88,.16), 0 24px 48px -16px rgba(4,36,88,.18);
+    --shadow-3: 0 2px 4px rgba(2,22,56,.10), 0 18px 40px -10px rgba(2,22,56,.35), 0 40px 80px -24px rgba(2,22,56,.40);
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+  body { font-family: Figtree, system-ui, sans-serif; line-height: 1.7; background: #F4F6FA; color: #0F1B2D; overflow-x: hidden; }
+  .font-display { letter-spacing: -0.03em; line-height: 1.08; }
+  [hidden] { display: none !important; }
+
+  .shadow-1 { box-shadow: var(--shadow-1); }
+  .shadow-2 { box-shadow: var(--shadow-2); }
+  .shadow-3 { box-shadow: var(--shadow-3); }
+
+  /* Grain overlay */
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .18; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-bg {
+    background:
+      radial-gradient(60rem 40rem at 85% 10%, rgba(192,140,40,.22), transparent 60%),
+      radial-gradient(40rem 30rem at 100% 90%, rgba(200,48,36,.18), transparent 60%),
+      radial-gradient(50rem 40rem at 0% 100%, rgba(27,58,110,.9), transparent 70%),
+      #042458;
+  }
+
+  /* Interactive states — transform/opacity only */
+  .btn { transition: transform .35s var(--spring), opacity .2s ease, background-color .2s ease, color .2s ease; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0) scale(.97); }
+  :focus-visible { outline: 3px solid #E2B85A; outline-offset: 3px; border-radius: 6px; }
+  .nav-link { position: relative; transition: color .2s ease; }
+  .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: #C08C28; transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease-out); }
+  .nav-link:hover::after, .nav-link:focus-visible::after, .nav-link.is-active::after { transform: scaleX(1); }
+  .nav-link:active { opacity: .7; }
+
+  /* Hero letter fan */
+  .letter { position: absolute; width: 58%; border-radius: 6px; overflow: hidden; background: #fff; box-shadow: var(--shadow-3);
+            opacity: 0; transition: transform 1s var(--ease-out), opacity .8s ease; }
+  .letter img { display: block; width: 100%; height: auto; }
+  .letter-1 { left: 2%;  top: 12%; transform: translateY(40px) rotate(-12deg); }
+  .letter-2 { left: 21%; top: 4%;  transform: translateY(40px) rotate(-2deg); z-index: 2; }
+  .letter-3 { left: 40%; top: 14%; transform: translateY(40px) rotate(9deg); z-index: 3; }
+  .loaded .letter { opacity: 1; }
+  .loaded .letter-1 { transform: rotate(-9deg); transition-delay: .1s; }
+  .loaded .letter-2 { transform: rotate(-1deg); transition-delay: .2s; }
+  .loaded .letter-3 { transform: rotate(7deg);  transition-delay: .3s; }
+  .seal { position: absolute; z-index: 5; width: 34%; right: 2%; bottom: 4%; opacity: 0; transform: scale(1.6) rotate(-30deg);
+          transition: transform .55s var(--spring) .95s, opacity .2s ease .95s; filter: drop-shadow(0 6px 14px rgba(120,20,10,.35)); }
+  .loaded .seal { opacity: .94; transform: scale(1) rotate(-14deg); }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .9s var(--ease-out); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Mobile menu */
+  #mobile-menu { opacity: 0; transform: translateY(-12px); pointer-events: none; transition: opacity .25s ease, transform .4s var(--spring); }
+  #mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; }
+  .burger span { display: block; width: 22px; height: 2px; background: currentColor; border-radius: 2px; transition: transform .35s var(--spring), opacity .2s ease; }
+  .burger span + span { margin-top: 5px; }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Tabs */
+  .tab { transition: color .2s ease, transform .35s var(--spring); }
+  .tab:hover { transform: translateY(-1px); }
+  .tab:active { transform: scale(.97); }
+  .tab-indicator { transition: transform .45s var(--spring); }
+  .tab-panel { animation: fadeUp .5s var(--ease-out); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* FAQ */
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  details .plus { transition: transform .4s var(--spring); }
+  details[open] .plus { transform: rotate(45deg); }
+  details[open] .faq-body { animation: fadeUp .45s var(--ease-out); }
+  .faq-item summary { transition: opacity .2s ease; }
+  .faq-item summary:hover .faq-q { color: #C08C28; }
+  .faq-item summary:active { opacity: .7; }
+
+  /* Letter cards */
+  .proof-card { transition: transform .45s var(--spring); }
+  .proof-card:hover { transform: translateY(-6px) rotate(-.6deg); }
+  .proof-card:active { transform: scale(.98); }
+  .proof-card .zoom { opacity: 0; transform: scale(.8); transition: opacity .25s ease, transform .4s var(--spring); }
+  .proof-card:hover .zoom, .proof-card:focus-visible .zoom { opacity: 1; transform: none; }
+
+  /* Lightbox */
+  dialog#lightbox { max-width: 100vw; max-height: 100vh; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; }
+  dialog#lightbox::backdrop { background: rgba(2,22,56,.88); }
+  dialog#lightbox[open] .lb-img { animation: lbIn .45s var(--spring); }
+  @keyframes lbIn { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal, .letter, .seal { opacity: 1 !important; }
+    .letter-1 { transform: rotate(-9deg); } .letter-2 { transform: rotate(-1deg); } .letter-3 { transform: rotate(7deg); }
+    .seal { transform: rotate(-14deg); }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!--
+  PLACEHOLDER CONTACT DETAILS — replace before going live:
+  phone/WhatsApp: +000 000 000 0000  (wa.me link uses 0000000000)
+  email: hello@chinabridgeconsult.com
+  office: Office address, City, Country
+  Stats in the About section are placeholders too.
+-->
+
+<!-- Top bar (desktop) -->
+<div class="hidden md:block bg-navy-deep text-white/80 text-sm">
+  <div class="max-w-page mx-auto px-8 h-10 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <a href="https://wa.me/0000000000" class="btn inline-flex items-center gap-2 hover:text-gold-light active:opacity-70">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>
+        +000 000 000 0000
+      </a>
+      <a href="mailto:hello@chinabridgeconsult.com" class="btn inline-flex items-center gap-2 hover:text-gold-light active:opacity-70">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        hello@chinabridgeconsult.com
+      </a>
+    </div>
+    <p class="text-white/60">Intakes every March and September</p>
+  </div>
+</div>
+
+<!-- Header -->
+<header id="top" class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-navy/10">
+  <div class="max-w-page mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between gap-4">
+    <a href="#home" class="btn flex items-center gap-2.5 active:opacity-80" aria-label="ChinaBridge Consult home">
+      <img src="brand-asset/logo-mark.png" alt="" class="h-10 md:h-12 w-auto">
+      <span class="leading-none">
+        <span class="block font-bold text-[1.15rem] md:text-xl tracking-tight"><span class="text-navy">China</span><span class="text-gold">Bridge</span></span>
+        <span class="block text-[0.62rem] tracking-[0.38em] text-navy/70 mt-1">CONSULT</span>
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8 text-[0.82rem] font-semibold tracking-[0.08em] text-navy" aria-label="Main">
+      <a href="#home" class="nav-link hover:text-gold">HOME</a>
+      <a href="#about" class="nav-link hover:text-gold">ABOUT US</a>
+      <a href="#courses" class="nav-link hover:text-gold">COURSES</a>
+      <a href="#faq" class="nav-link hover:text-gold">FAQ</a>
+      <a href="#testimonials" class="nav-link hover:text-gold">TESTIMONIALS</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="https://wa.me/0000000000" class="btn hidden sm:inline-flex items-center gap-2 rounded-full bg-navy text-white text-sm font-semibold px-5 py-2.5 shadow-1 hover:bg-navy-soft">
+        Chat on WhatsApp
+      </a>
+      <button id="burger" class="burger lg:hidden text-navy p-3 -mr-3 rounded-lg hover:bg-navy-mist active:scale-95" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden absolute inset-x-0 top-full bg-white border-b border-navy/10 shadow-2">
+    <nav class="px-5 py-4 flex flex-col text-navy font-semibold tracking-[0.06em]" aria-label="Mobile">
+      <a href="#home" class="py-3.5 border-b border-navy/10 hover:text-gold active:opacity-70">HOME</a>
+      <a href="#about" class="py-3.5 border-b border-navy/10 hover:text-gold active:opacity-70">ABOUT US</a>
+      <a href="#courses" class="py-3.5 border-b border-navy/10 hover:text-gold active:opacity-70">COURSES</a>
+      <a href="#faq" class="py-3.5 border-b border-navy/10 hover:text-gold active:opacity-70">FAQ</a>
+      <a href="#testimonials" class="py-3.5 hover:text-gold active:opacity-70">TESTIMONIALS</a>
+      <a href="https://wa.me/0000000000" class="btn mt-3 text-center rounded-full bg-gold text-navy-deep py-3.5 tracking-normal hover:bg-gold-light">Chat on WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<section id="home" class="hero-bg grain relative overflow-hidden text-white">
+  <div class="relative z-10 max-w-page mx-auto px-5 md:px-8 pt-14 pb-16 md:pt-24 md:pb-28 grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-10 items-center">
+    <div>
+      <p class="inline-flex items-center gap-2 text-gold-light text-xs md:text-sm font-semibold tracking-[0.18em] uppercase">
+        <span class="w-6 h-px bg-gold-light"></span> Study in China
+      </p>
+      <h1 class="font-display text-[2.6rem] sm:text-5xl lg:text-[4.1rem] mt-5">
+        Your admission to a <span class="text-gold-light">Chinese university</span> starts here.
+      </h1>
+      <p class="mt-6 text-white/75 text-base md:text-lg max-w-xl">
+        We help you choose the right program, apply to the right universities, win scholarships and get your student visa. When you land in China, we're still with you.
+      </p>
+      <div class="mt-9 flex flex-col sm:flex-row gap-3">
+        <a href="https://wa.me/0000000000" class="btn inline-flex justify-center items-center gap-2 rounded-full bg-gold text-navy-deep font-semibold px-7 py-4 shadow-3 hover:bg-gold-light">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>
+          Chat with us on WhatsApp
+        </a>
+        <a href="#testimonials" class="btn inline-flex justify-center items-center rounded-full border border-white/25 text-white font-semibold px-7 py-4 hover:bg-white/10">
+          See admission letters
+        </a>
+      </div>
+    </div>
+
+    <!-- Signature: fanned admission letters with seal -->
+    <div class="relative mx-auto w-full max-w-[30rem] aspect-[1/0.92]" aria-label="Admission letters received by our students" role="img">
+      <div class="letter letter-1"><img src="images/blurred/proof2.jpg" alt=""></div>
+      <div class="letter letter-2"><img src="images/blurred/proof1.jpg" alt=""></div>
+      <div class="letter letter-3"><img src="images/blurred/proof.jpg" alt=""></div>
+      <svg class="seal" viewBox="0 0 200 200" aria-hidden="true">
+        <defs><path id="sealRing" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+        <circle cx="100" cy="100" r="94" fill="none" stroke="#C83024" stroke-width="7"/>
+        <circle cx="100" cy="100" r="54" fill="none" stroke="#C83024" stroke-width="2"/>
+        <text fill="#C83024" font-family="Figtree, sans-serif" font-weight="700" font-size="17" letter-spacing="5.2">
+          <textPath href="#sealRing">CHINABRIDGE CONSULT · ADMITTED ·</textPath>
+        </text>
+        <path fill="#C83024" d="M100 62l6.2 19h20l-16.2 11.8 6.2 19L100 100l-16.2 11.8 6.2-19L73.8 81h20z"/>
+        <text x="100" y="138" text-anchor="middle" fill="#C83024" font-family="Figtree, sans-serif" font-weight="700" font-size="17" letter-spacing="2">2026</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- University strip -->
+  <div class="relative z-10 border-t border-white/10 bg-navy-deep/40">
+    <div class="max-w-page mx-auto px-5 md:px-8 py-6 flex flex-col md:flex-row md:items-center gap-3 md:gap-8">
+      <p class="text-xs tracking-[0.18em] uppercase text-white/50 shrink-0">Recent admissions to</p>
+      <ul class="flex flex-col md:flex-row md:flex-wrap gap-x-6 gap-y-1.5 font-display text-white/90 text-lg">
+        <li>Jilin University</li>
+        <li class="hidden md:block text-gold-light/60" aria-hidden="true">/</li>
+        <li>Jinggangshan University</li>
+        <li class="hidden md:block text-gold-light/60" aria-hidden="true">/</li>
+        <li>Jiangxi University of Chinese Medicine</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT US -->
+<section id="about" class="py-20 md:py-28">
+  <div class="max-w-page mx-auto px-5 md:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="reveal relative order-2 lg:order-1">
+      <div class="relative rounded-3xl overflow-hidden shadow-3 aspect-[4/5] max-h-[34rem] w-full">
+        <img src="https://placehold.co/800x1000/1B3A6E/E6EBF3?text=Team+photo" alt="The ChinaBridge Consult team" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-navy mix-blend-multiply opacity-30"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+        <p class="absolute bottom-5 left-5 right-5 text-white/90 text-sm">Our advisers have been through the Chinese admissions system themselves.</p>
+      </div>
+      <div class="absolute -right-2 sm:-right-6 -top-6 bg-white rounded-2xl shadow-2 px-5 py-4 max-w-[13rem]">
+        <p class="font-display text-3xl text-navy">2</p>
+        <p class="text-sm text-ink/70 leading-snug">intakes a year: March and September</p>
+      </div>
+    </div>
+
+    <div class="reveal order-1 lg:order-2">
+      <p class="text-gold text-xs md:text-sm font-semibold tracking-[0.18em] uppercase">About us</p>
+      <h2 class="font-display text-navy text-4xl md:text-5xl mt-4">One team from your first question to your first semester.</h2>
+      <p class="mt-6 text-ink/75 text-lg">
+        ChinaBridge Consult is an education agency that places international students in Chinese universities. We know which universities accept which grades, which scholarships are realistic, and what the embassy will ask for. You get one adviser who handles your case from start to finish.
+      </p>
+      <ul class="mt-8 space-y-4">
+        <li class="flex gap-3"><span class="mt-1.5 w-5 h-5 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center"><svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m2.5 6.2 2.3 2.3 4.7-5"/></svg></span><span>Choosing a program and university that fit your grades and budget</span></li>
+        <li class="flex gap-3"><span class="mt-1.5 w-5 h-5 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center"><svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m2.5 6.2 2.3 2.3 4.7-5"/></svg></span><span>Preparing and submitting your application documents</span></li>
+        <li class="flex gap-3"><span class="mt-1.5 w-5 h-5 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center"><svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m2.5 6.2 2.3 2.3 4.7-5"/></svg></span><span>Applying for government, provincial and university scholarships</span></li>
+        <li class="flex gap-3"><span class="mt-1.5 w-5 h-5 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center"><svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m2.5 6.2 2.3 2.3 4.7-5"/></svg></span><span>JW202 form and X1 student visa guidance</span></li>
+        <li class="flex gap-3"><span class="mt-1.5 w-5 h-5 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center"><svg class="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m2.5 6.2 2.3 2.3 4.7-5"/></svg></span><span>Airport pickup and help settling in after you arrive</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stats (PLACEHOLDER figures) -->
+  <div class="reveal max-w-page mx-auto px-5 md:px-8 mt-16 md:mt-24">
+    <dl class="grid grid-cols-2 md:grid-cols-4 bg-white rounded-3xl shadow-2 divide-navy/10 overflow-hidden">
+      <div class="p-6 md:p-8 border-b md:border-b-0 border-r border-navy/10">
+        <dt class="text-sm text-ink/60 order-2">Years of experience</dt>
+        <dd class="font-display text-4xl md:text-5xl text-navy mt-1">8+</dd>
+      </div>
+      <div class="p-6 md:p-8 border-b md:border-b-0 md:border-r border-navy/10">
+        <dt class="text-sm text-ink/60">Partner universities</dt>
+        <dd class="font-display text-4xl md:text-5xl text-navy mt-1">150+</dd>
+      </div>
+      <div class="p-6 md:p-8 border-r border-navy/10">
+        <dt class="text-sm text-ink/60">Students placed</dt>
+        <dd class="font-display text-4xl md:text-5xl text-navy mt-1">1,000+</dd>
+      </div>
+      <div class="p-6 md:p-8">
+        <dt class="text-sm text-ink/60">Admission success rate</dt>
+        <dd class="font-display text-4xl md:text-5xl text-gold mt-1">95%</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses" class="py-20 md:py-28 bg-white relative">
+  <div class="max-w-page mx-auto px-5 md:px-8">
+    <div class="reveal max-w-2xl">
+      <p class="text-gold text-xs md:text-sm font-semibold tracking-[0.18em] uppercase">Courses</p>
+      <h2 class="font-display text-navy text-4xl md:text-5xl mt-4">Programs you can apply for</h2>
+      <p class="mt-5 text-ink/70 text-lg">Most programs are taught in English, and many come with full or partial scholarships. Pick your level to see typical fields and what you'll need.</p>
+    </div>
+
+    <div class="reveal mt-10">
+      <div class="relative inline-grid grid-cols-3 bg-paper rounded-full p-1.5 w-full sm:w-auto" role="tablist" aria-label="Study level">
+        <span class="tab-indicator absolute top-1.5 bottom-1.5 left-1.5 rounded-full bg-navy shadow-1" style="width: calc((100% - .75rem) / 3)" aria-hidden="true"></span>
+        <button class="tab relative z-10 px-5 sm:px-8 py-3 rounded-full text-sm sm:text-base font-semibold text-white" role="tab" aria-selected="true" aria-controls="panel-bachelor" id="tab-bachelor">Bachelor's</button>
+        <button class="tab relative z-10 px-5 sm:px-8 py-3 rounded-full text-sm sm:text-base font-semibold text-navy" role="tab" aria-selected="false" aria-controls="panel-master" id="tab-master" tabindex="-1">Master's</button>
+        <button class="tab relative z-10 px-5 sm:px-8 py-3 rounded-full text-sm sm:text-base font-semibold text-navy" role="tab" aria-selected="false" aria-controls="panel-phd" id="tab-phd" tabindex="-1">PhD</button>
+      </div>
+
+      <!-- Bachelor's -->
+      <div id="panel-bachelor" class="tab-panel mt-8 grid lg:grid-cols-[1.4fr_1fr] gap-6" role="tabpanel" aria-labelledby="tab-bachelor">
+        <div class="rounded-3xl bg-paper p-6 md:p-10">
+          <div class="flex flex-wrap gap-x-10 gap-y-4">
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Duration</p><p class="font-semibold text-navy text-lg">4–6 years</p></div>
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Taught in</p><p class="font-semibold text-navy text-lg">English or Chinese</p></div>
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Intakes</p><p class="font-semibold text-navy text-lg">March, September</p></div>
+          </div>
+          <p class="mt-8 font-semibold text-navy">Popular fields</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Medicine (MBBS)</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Nursing</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Pharmacy</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Computer Science</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Civil Engineering</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Business Administration</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">International Trade</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Chinese Language</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl bg-navy text-white p-6 md:p-10 shadow-2">
+          <p class="font-display text-2xl">What you'll need</p>
+          <ul class="mt-5 space-y-3 text-white/80">
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Secondary school certificate (WAEC, NECO or equivalent)</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Valid international passport</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Medical examination form</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Police clearance certificate</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Master's -->
+      <div id="panel-master" class="tab-panel mt-8 grid lg:grid-cols-[1.4fr_1fr] gap-6" role="tabpanel" aria-labelledby="tab-master" hidden>
+        <div class="rounded-3xl bg-paper p-6 md:p-10">
+          <div class="flex flex-wrap gap-x-10 gap-y-4">
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Duration</p><p class="font-semibold text-navy text-lg">2–3 years</p></div>
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Taught in</p><p class="font-semibold text-navy text-lg">English or Chinese</p></div>
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Intakes</p><p class="font-semibold text-navy text-lg">March, September</p></div>
+          </div>
+          <p class="mt-8 font-semibold text-navy">Popular fields</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Public Health</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">MBA</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Computer Science</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Electrical Engineering</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">International Relations</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Finance</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Education</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Agriculture</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl bg-navy text-white p-6 md:p-10 shadow-2">
+          <p class="font-display text-2xl">What you'll need</p>
+          <ul class="mt-5 space-y-3 text-white/80">
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Bachelor's degree certificate and transcript</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Two recommendation letters</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Study plan or personal statement</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Proof of English proficiency</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PhD -->
+      <div id="panel-phd" class="tab-panel mt-8 grid lg:grid-cols-[1.4fr_1fr] gap-6" role="tabpanel" aria-labelledby="tab-phd" hidden>
+        <div class="rounded-3xl bg-paper p-6 md:p-10">
+          <div class="flex flex-wrap gap-x-10 gap-y-4">
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Duration</p><p class="font-semibold text-navy text-lg">3–4 years</p></div>
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Taught in</p><p class="font-semibold text-navy text-lg">English or Chinese</p></div>
+            <div><p class="text-xs uppercase tracking-[0.14em] text-ink/50">Intakes</p><p class="font-semibold text-navy text-lg">March, September</p></div>
+          </div>
+          <p class="mt-8 font-semibold text-navy">Popular fields</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Engineering</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Medicine &amp; Public Health</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Materials Science</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Economics</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Environmental Science</li>
+            <li class="rounded-full bg-white shadow-1 px-4 py-2 text-sm">Agriculture</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl bg-navy text-white p-6 md:p-10 shadow-2">
+          <p class="font-display text-2xl">What you'll need</p>
+          <ul class="mt-5 space-y-3 text-white/80">
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Master's degree certificate and transcript</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Research proposal</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Two recommendation letters from professors</li>
+            <li class="flex gap-3"><span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-gold-light shrink-0"></span>Publications, if you have any</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="mt-6 text-ink/60 text-sm">Not sure which program fits? Send us your results on WhatsApp and we'll suggest options.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-20 md:py-28">
+  <div class="max-w-page mx-auto px-5 md:px-8 grid lg:grid-cols-[1fr_1.6fr] gap-10 lg:gap-16">
+    <div class="reveal lg:sticky lg:top-28 self-start">
+      <p class="text-gold text-xs md:text-sm font-semibold tracking-[0.18em] uppercase">FAQ</p>
+      <h2 class="font-display text-navy text-4xl md:text-5xl mt-4">Questions students ask us</h2>
+      <p class="mt-5 text-ink/70 text-lg">Don't see yours? Message us and an adviser will reply.</p>
+      <a href="https://wa.me/0000000000" class="btn mt-7 inline-flex items-center gap-2 rounded-full bg-navy text-white font-semibold px-6 py-3.5 shadow-2 hover:bg-navy-soft">Ask on WhatsApp</a>
+    </div>
+
+    <div class="reveal bg-white rounded-3xl shadow-2 px-5 md:px-8 divide-y divide-navy/10">
+      <details class="faq-item group py-5" open>
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">What does ChinaBridge Consult do for me?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">We guide you through the whole process: picking a university and program, preparing and submitting your application, applying for scholarships, getting your visa documents, and settling in once you arrive in China.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">What are the basic requirements?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">A valid passport, your highest academic certificate and transcript, a medical examination form and a police clearance certificate. Master's and PhD applicants also need recommendation letters and a study plan or research proposal.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">Are there programs taught in English?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">Yes. Many Chinese universities teach medicine, engineering, business and science fully in English. We'll show you which ones match your level.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">How long does the application take?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">Usually 4 to 8 weeks from submitting your documents to receiving an admission letter. It depends on the university and the time of year, so apply early.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">Can I get a scholarship?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">Many students do. Scholarships range from partial tuition discounts to full awards covering tuition, accommodation and a monthly allowance. We check your eligibility and apply on your behalf.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">Do I need to speak Chinese?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">Not for English-taught programs. If you choose a Chinese-taught program, you can take a one-year Chinese language course first. Learning some Chinese helps with daily life either way.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">How much does it cost to study in China?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">It depends on the university, city and program. Tuition is often lower than in Europe or North America, and scholarships can reduce it further. Tell us your budget and we'll find options that fit.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">Do you help with the student visa?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">Yes. Once you're admitted, the university issues your admission letter and JW202 form. We help you prepare everything you need to apply for your X1 student visa at the Chinese embassy.</p>
+      </details>
+      <details class="faq-item group py-5">
+        <summary class="flex items-start justify-between gap-4"><span class="faq-q font-semibold text-navy text-lg leading-snug">What happens after I arrive in China?</span><span class="plus mt-0.5 w-7 h-7 shrink-0 rounded-full bg-gold-pale text-gold grid place-items-center text-xl leading-none">+</span></summary>
+        <p class="faq-body mt-3 text-ink/70">We can arrange airport pickup and help you register at the university, open a bank account, get a local SIM card and apply for your residence permit.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="py-20 md:py-28 bg-navy-deep text-white relative overflow-hidden grain">
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(40rem 30rem at 10% 0%, rgba(192,140,40,.16), transparent 60%), radial-gradient(36rem 30rem at 100% 100%, rgba(200,48,36,.12), transparent 60%);"></div>
+  <div class="relative z-10 max-w-page mx-auto px-5 md:px-8">
+    <div class="reveal max-w-2xl">
+      <p class="text-gold-light text-xs md:text-sm font-semibold tracking-[0.18em] uppercase">Testimonials</p>
+      <h2 class="font-display text-4xl md:text-5xl mt-4">Admission letters our students received</h2>
+      <p class="mt-5 text-white/70 text-lg">Each of these letters was issued to a student we worked with. Names and passport numbers are blurred to protect their privacy. Tap a letter to view it.</p>
+    </div>
+
+    <ul class="mt-12 grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 md:gap-8" id="proofs">
+      <li class="reveal">
+        <button class="proof-card group w-full text-left" data-index="0">
+          <span class="relative block rounded-2xl overflow-hidden bg-white shadow-3 aspect-[3/4]">
+            <img src="images/blurred/proof1.jpg" alt="Pre-admission notice from Jilin University" class="w-full h-full object-cover object-top" loading="lazy">
+            <span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></span>
+            <span class="zoom absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 text-navy grid place-items-center shadow-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span>
+          </span>
+          <span class="block mt-3 sm:mt-4 font-display text-base sm:text-xl">Jilin University</span>
+          <span class="block mt-1 text-white/60 text-xs sm:text-sm leading-snug">Pre-university program · Côte d'Ivoire</span>
+        </button>
+      </li>
+      <li class="reveal">
+        <button class="proof-card group w-full text-left" data-index="1">
+          <span class="relative block rounded-2xl overflow-hidden bg-white shadow-3 aspect-[3/4]">
+            <img src="images/blurred/proof2.jpg" alt="Pre-admission notice from Jiangxi University of Chinese Medicine" class="w-full h-full object-cover object-top" loading="lazy">
+            <span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></span>
+            <span class="zoom absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 text-navy grid place-items-center shadow-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span>
+          </span>
+          <span class="block mt-3 sm:mt-4 font-display text-base sm:text-xl">Jiangxi University of Chinese Medicine</span>
+          <span class="block mt-1 text-white/60 text-xs sm:text-sm leading-snug">B.Sc. Nursing</span>
+        </button>
+      </li>
+      <li class="reveal">
+        <button class="proof-card group w-full text-left" data-index="2">
+          <span class="relative block rounded-2xl overflow-hidden bg-white shadow-3 aspect-[3/4]">
+            <img src="images/blurred/proof.jpg" alt="Admission letter from Jinggangshan University" class="w-full h-full object-cover object-top" loading="lazy">
+            <span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></span>
+            <span class="zoom absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 text-navy grid place-items-center shadow-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span>
+          </span>
+          <span class="block mt-3 sm:mt-4 font-display text-base sm:text-xl">Jinggangshan University</span>
+          <span class="block mt-1 text-white/60 text-xs sm:text-sm leading-snug">Nursing · Pakistan</span>
+        </button>
+      </li>
+      <li class="reveal">
+        <button class="proof-card group w-full text-left" data-index="3">
+          <span class="relative block rounded-2xl overflow-hidden bg-white shadow-3 aspect-[3/4]">
+            <img src="images/blurred/proof3.jpg" alt="Admission letter from Jinggangshan University" class="w-full h-full object-cover object-top" loading="lazy">
+            <span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></span>
+            <span class="zoom absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 text-navy grid place-items-center shadow-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span>
+          </span>
+          <span class="block mt-3 sm:mt-4 font-display text-base sm:text-xl">Jinggangshan University</span>
+          <span class="block mt-1 text-white/60 text-xs sm:text-sm leading-snug">Nursing · Liberia</span>
+        </button>
+      </li>
+      <li class="reveal">
+        <button class="proof-card group w-full text-left" data-index="4">
+          <span class="relative block rounded-2xl overflow-hidden bg-white shadow-3 aspect-[3/4]">
+            <img src="images/blurred/proof4.jpg" alt="Admission letter from Jinggangshan University" class="w-full h-full object-cover object-top" loading="lazy">
+            <span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></span>
+            <span class="zoom absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 text-navy grid place-items-center shadow-1"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span>
+          </span>
+          <span class="block mt-3 sm:mt-4 font-display text-base sm:text-xl">Jinggangshan University</span>
+          <span class="block mt-1 text-white/60 text-xs sm:text-sm leading-snug">Nursing · Rwanda</span>
+        </button>
+      </li>
+      <li class="reveal">
+        <a href="https://wa.me/0000000000" class="btn flex flex-col justify-end h-full rounded-2xl border border-dashed border-gold-light/40 p-4 sm:p-6 md:p-8 hover:bg-white/5">
+          <span class="font-display text-xl sm:text-3xl text-gold-light leading-tight">Your letter could be next.</span>
+          <span class="mt-3 text-white/70 text-sm sm:text-base leading-snug">Send us your results and we'll tell you where you can apply.</span>
+          <span class="mt-6 inline-flex items-center gap-2 font-semibold">Chat on WhatsApp <span aria-hidden="true">→</span></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-navy text-white/75">
+  <div class="max-w-page mx-auto px-5 md:px-8 py-16 grid gap-12 md:grid-cols-[1.4fr_1fr_1.2fr]">
+    <div>
+      <a href="#home" class="btn inline-flex items-center gap-3 active:opacity-80">
+        <img src="brand-asset/logo-mark-light.png" alt="" class="h-12 w-auto">
+        <span class="leading-none">
+          <span class="block font-bold text-xl text-white tracking-tight">China<span class="text-gold-light">Bridge</span></span>
+          <span class="block text-[0.62rem] tracking-[0.38em] text-white/60 mt-1">CONSULT</span>
+        </span>
+      </a>
+      <p class="mt-5 max-w-sm">Your bridge to Chinese education. We help international students get admitted to Chinese universities, win scholarships and settle in.</p>
+    </div>
+    <div>
+      <p class="text-white font-semibold">Quick links</p>
+      <ul class="mt-4 space-y-2.5">
+        <li><a href="#home" class="nav-link hover:text-white">Home</a></li>
+        <li><a href="#about" class="nav-link hover:text-white">About us</a></li>
+        <li><a href="#courses" class="nav-link hover:text-white">Courses</a></li>
+        <li><a href="#faq" class="nav-link hover:text-white">FAQ</a></li>
+        <li><a href="#testimonials" class="nav-link hover:text-white">Testimonials</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-white font-semibold">Contact</p>
+      <ul class="mt-4 space-y-2.5">
+        <li><a href="https://wa.me/0000000000" class="nav-link hover:text-white">WhatsApp: +000 000 000 0000</a></li>
+        <li><a href="mailto:hello@chinabridgeconsult.com" class="nav-link hover:text-white break-all">hello@chinabridgeconsult.com</a></li>
+        <li>Office address, City, Country</li>
+      </ul>
+      <a href="https://wa.me/0000000000" class="btn mt-6 inline-flex items-center rounded-full bg-gold text-navy-deep font-semibold px-6 py-3.5 hover:bg-gold-light">Start your application</a>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <p class="max-w-page mx-auto px-5 md:px-8 py-6 text-sm text-white/50">© 2026 ChinaBridge Consult. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<dialog id="lightbox" aria-label="Admission letter">
+  <div class="w-full h-full flex items-center justify-center p-4 md:p-10" id="lb-wrap">
+    <img class="lb-img max-h-full max-w-full rounded-lg shadow-3 bg-white" alt="">
+  </div>
+  <button id="lb-close" class="btn fixed top-4 right-4 w-12 h-12 rounded-full bg-white text-navy grid place-items-center shadow-2 hover:bg-gold-pale" aria-label="Close">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <button id="lb-prev" class="btn fixed left-3 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 text-navy grid place-items-center shadow-2 hover:bg-white" aria-label="Previous letter">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 6-6 6 6 6"/></svg>
+  </button>
+  <button id="lb-next" class="btn fixed right-3 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 text-navy grid place-items-center shadow-2 hover:bg-white" aria-label="Next letter">
+    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 6 6 6-6 6"/></svg>
+  </button>
+</dialog>
+
+<script>
+  // Hero load sequence
+  requestAnimationFrame(() => document.body.classList.add('loaded'));
+
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobile-menu');
+  const setMenu = open => {
+    menu.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+  burger.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // Course tabs
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const indicator = document.querySelector('.tab-indicator');
+  const selectTab = (tab, focus) => {
+    tabs.forEach((t, i) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      t.classList.toggle('text-white', on);
+      t.classList.toggle('text-navy', !on);
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      if (on) indicator.style.transform = `translateX(${i * 100}%)`;
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectTab(t));
+    t.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') selectTab(tabs[(i + 1) % tabs.length], true);
+      if (e.key === 'ArrowLeft') selectTab(tabs[(i - 1 + tabs.length) % tabs.length], true);
+    });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Active nav link
+  const links = [...document.querySelectorAll('header nav a.nav-link')];
+  const spy = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) links.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
+
+  // Lightbox
+  const cards = [...document.querySelectorAll('.proof-card')];
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('.lb-img');
+  let current = 0;
+  const show = i => {
+    current = (i + cards.length) % cards.length;
+    const img = cards[current].querySelector('img');
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    lbImg.style.animation = 'none'; lbImg.offsetHeight; lbImg.style.animation = '';
+  };
+  cards.forEach((c, i) => c.addEventListener('click', () => { show(i); lb.showModal(); }));
+  document.getElementById('lb-close').addEventListener('click', () => lb.close());
+  document.getElementById('lb-prev').addEventListener('click', () => show(current - 1));
+  document.getElementById('lb-next').addEventListener('click', () => show(current + 1));
+  document.getElementById('lb-wrap').addEventListener('click', e => { if (e.target.id === 'lb-wrap') lb.close(); });
+  lb.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') show(current + 1);
+    if (e.key === 'ArrowLeft') show(current - 1);
+  });
+  let touchX = null;
+  lb.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+</script>
+</body>
+</html>

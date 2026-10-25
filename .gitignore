@@ -1,0 +1,12 @@
+# Secrets
+agency.env
+*.env
+
+# Dependencies
+node_modules/
+
+# Local screenshots
+temporary screenshots/
+
+# Original admission letters contain names and passport numbers — only the blurred copies are published
+images/*.jpg
